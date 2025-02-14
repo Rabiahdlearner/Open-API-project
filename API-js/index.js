@@ -65,6 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 let weather_day = data.daily.weather_code[0];
                 let precipitation_hours = data.daily.precipitation_hours[0];
 
+                console.log(outputDiv);
+
 
 
 
@@ -87,7 +89,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     <strong>Weather Code:</strong> ${weather_day[i]}
                     <strong>Precipitation Hours:</strong> ${precipitation_hours[i]} hours
                 `;
+
+                    console.log(outputHTML);
+
                 }
+                outputDiv.appendChild(outputHTML);
+
 
 
             })
@@ -99,105 +106,105 @@ document.addEventListener("DOMContentLoaded", function () {
 
     dailyweather();
 
-    
-    function plotWeatherGraph() {
-        let ctx = document.getElementById("weather-chart").getContext("2d");
 
-        // Get selected data options
-        let selectedOptions = Array.from(document.querySelectorAll(".data-option:checked"))
-            .map(option => option.value);
+    // function plotWeatherGraph() {
+    let ctx = document.getElementById("weather-chart").getContext("2d");
 
-        // Define dataset mapping
-        let datasetMap =  {
-            "temp": {
-                    label: "Temperature (°C)",
-                    data: data.daily.temperature_2m_max,
-                    borderColor: "rgba(255, 99, 132, 1)",
-                    backgroundColor: "rgba(255, 99, 132, 0.2)"
-                },
-                "sun": {
-                    label: "Daily Sunrise",
-                    data: data.daily.sunrise,
-                    borderColor: "rgb(187, 234, 250)",
-                    backgroundColor: "rgba(54, 162, 235, 0.2)"
-                },
-                "day": {
-                    label: "Daylight Duration (hours)",
-                    data: data.daily.daylight_duration,
-                    borderColor: "rgb(16, 255, 255)",
-                    backgroundColor: "rgba(75, 192, 192, 0.2)"
-                },
-                "precip": {
-                    label: "Precipitation Sum",
-                    data: data.daily.precipitation_sum,
-                    borderColor: "rgb(214, 214, 214)",
-                    backgroundColor: "rgba(75, 192, 192, 0.2)"
-                },
-                "rain": {
-                    label: "Daily Rainfall Sum",
-                    data: data.daily.rain_sum,
-                    borderColor: "rgb(201, 157, 228)",
-                    backgroundColor: "rgba(75, 192, 192, 0.2)"
-                },
-                "showers": {
-                    label: "Showers Sum",
-                    data: data.daily.showers_sum,
-                    borderColor: "rgb(236, 255, 178)",
-                    backgroundColor: "rgba(75, 192, 192, 0.2)"
-                },
-                "snow": {
-                    label: "Snowfall Sum",
-                    data: data.daily.snowfall_sum,
-                    borderColor: "rgb(161, 192, 75)",
-                    backgroundColor: "rgba(75, 192, 192, 0.2)"
-                },
-                "weather": {
-                    label: "Weather Code",
-                    data: data.daily.weather_code,
-                    borderColor: "rgb(192, 75, 75)",
-                    backgroundColor: "rgba(75, 192, 192, 0.2)"
-                },
-                "prec_hrs": {
-                    label: "Precipita1tion Hours(Hours)",
-                    data: data.daily.precipitation_hours,
-                    borderColor: "rgb(75, 97, 192)",
-                    backgroundColor: "rgba(75, 192, 192, 0.2)"
-                }
+    // Get selected data options
+    let selectedOptions = Array.from(document.querySelectorAll(".data-option:checked"))
+        .map(option => option.value);
 
-
-            };
-       
-            
-        // Create dataset based on selected options
-        let datasets = selectedOptions.map(option => datasetMap[option]);
-
-        // Destroy previous chart instance if it exists
-        if (chartInstance) {
-            chartInstance.destroy();
+    // Define dataset mapping
+    let datasetMap = {
+        "temp": {
+            label: "Temperature (°C)",
+            data: data.daily.temperature_2m_max,
+            borderColor: "rgba(255, 99, 132, 1)",
+            backgroundColor: "rgba(255, 99, 132, 0.2)"
+        },
+        "sun": {
+            label: "Daily Sunrise",
+            data: data.daily.sunrise,
+            borderColor: "rgb(187, 234, 250)",
+            backgroundColor: "rgba(54, 162, 235, 0.2)"
+        },
+        "day": {
+            label: "Daylight Duration (hours)",
+            data: data.daily.daylight_duration,
+            borderColor: "rgb(16, 255, 255)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)"
+        },
+        "precip": {
+            label: "Precipitation Sum",
+            data: data.daily.precipitation_sum,
+            borderColor: "rgb(214, 214, 214)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)"
+        },
+        "rain": {
+            label: "Daily Rainfall Sum",
+            data: data.daily.rain_sum,
+            borderColor: "rgb(201, 157, 228)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)"
+        },
+        "showers": {
+            label: "Showers Sum",
+            data: data.daily.showers_sum,
+            borderColor: "rgb(236, 255, 178)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)"
+        },
+        "snow": {
+            label: "Snowfall Sum",
+            data: data.daily.snowfall_sum,
+            borderColor: "rgb(161, 192, 75)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)"
+        },
+        "weather": {
+            label: "Weather Code",
+            data: data.daily.weather_code,
+            borderColor: "rgb(192, 75, 75)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)"
+        },
+        "prec_hrs": {
+            label: "Precipita1tion Hours(Hours)",
+            data: data.daily.precipitation_hours,
+            borderColor: "rgb(75, 97, 192)",
+            backgroundColor: "rgba(75, 192, 192, 0.2)"
         }
 
-        // Create a new chart
-        chartInstance = new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: weatherData.dates,
-                datasets: datasets
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: false
-                    }
+
+    };
+
+
+    // Create dataset based on selected options
+    let datasets = selectedOptions.map(option => datasetMap[option]);
+
+    // Destroy previous chart instance if it exists
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
+
+    // Create a new chart
+    chartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: weatherData.dates,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: false
                 }
             }
-        });
-    
+        }
+    });
+
 
     // Event listener for the "Update Chart" button
     document.getElementById("updateChart").addEventListener("click", plotWeatherGraph);
-};
+    // };
     // Fetch weather data on page load
 
-    plotWeatherGraph();
+    // plotWeatherGraph();
 });
