@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     
     function plotWeatherGraph() {
-        let ctx = document.getElementById("weatherChart").getContext("2d");
+        let ctx = document.getElementById("weather-chart").getContext("2d");
 
         // Get selected data options
         let selectedOptions = Array.from(document.querySelectorAll(".data-option:checked"))
