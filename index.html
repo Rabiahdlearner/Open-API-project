@@ -11,26 +11,28 @@
 </head>
 
 <body>
-   
+
     <section class="h1-container">
         <h1>Weather in Fargo ND Today</h1>
     </section>
 
     <section id="open-meteo">
-        <div id="weather-output">Loading...
+        <button type="button" id="hour">Get weather for today</button>
+        <button type="button" id="week">Get weather for the week</button>
+
+        <div id="weather-today">
         </div>
 
-        <div id="weather-out">Loading...
+        <div id="weather-week">
         </div>
 
         <canvas id="weather-chart"></canvas>
     </section>
 
-    
+
 
 
     <script src="/API-js/index.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 
