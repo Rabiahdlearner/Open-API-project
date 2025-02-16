@@ -26,7 +26,28 @@ h1{
   min-height: 100vh;
   overflow-x: scroll;
   overflow-y:  scroll;
-  background-color: aliceblue;
-  opacity: 0.4;
+  background: rgb(240, 248, 255, 0.6);
+ 
+}
+
+
+button {
+  box-shadow: 1px 1px 1px 1px rgb(3, 3, 52);
+  background-color: rgb(3, 3, 52);
+  color: white;
+  border: none;
+  border-radius: 7px;
+  margin: 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+
+#weather-week {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 

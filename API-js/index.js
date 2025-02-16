@@ -1,7 +1,7 @@
 
 
 
-
+let resetButton;
 
 let hourlyWeather = function () {
     fetch("https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m,precipitation,snow_depth,weather_code,visibility,wind_speed_80m,soil_temperature_6cm")
@@ -13,10 +13,14 @@ let hourlyWeather = function () {
         })
         .then(data => {
             console.log(data);
-           // todayDiv.hidden = false;
-            //weekDiv.hidden = true;
 
-            let outputDiv = document.getElementById("weather-output");
+            todayDiv.hidden = false;
+            weekDiv.hidden = true;
+            weekly.hidden = true;
+            resetButton.hidden = false;
+
+
+            let outputDiv = document.getElementById("weather-today");
 
             let temp = data.hourly.temperature_2m[0];
             let precip = data.hourly.precipitation[0];
@@ -43,8 +47,6 @@ let hourlyWeather = function () {
             console.error("Error fetching data: ", error);
             document.getElementById("weather-output").innerText = "Failed to load data.";
         });
-
-
 };
 
 
@@ -60,7 +62,15 @@ let weeklyWeather = function () {
         })
         .then(data => {
             console.log(data);
-            let outputDiv = document.getElementById("weather-out");
+            let outputDiv = document.getElementById("weather-week");
+
+            weekDiv.hidden = false;
+            todayDiv.hidden = true;
+            hourly.hidden = true;
+            resetButton.hidden = false;
+
+
+
 
             let dates = data.daily.time;
             console.log(dates);
@@ -85,10 +95,8 @@ let weeklyWeather = function () {
             for (let i = 0; i < dates.length; i++) {
 
 
-
-
                 outputHTML += `
-                    <strong>Date:</strong> ${dates[i]}
+                   <strong>Date:</strong> ${dates[i]}
                    <strong>Temperature:</strong> ${temp_day[i]}°C
                     <strong>Sunrise:</strong> ${sun_day[i]}
                     <strong>Daylight Duration:</strong> ${day[i]} hours
@@ -112,20 +120,37 @@ let weeklyWeather = function () {
             console.error("Error fetching data: ", error);
             document.getElementById("weather-out").innerText = "Failed to load data.";
         });
-
-    //todayDiv.hidden = true;
-    //weekDiv.hidden = false;
 };
+
+
+
+let reset = function () {
+    todayDiv.hidden = true;
+    weekDiv.hidden = true;
+    hourly.hidden = false;
+    weekly.hidden = false;
+    resetButton.hidden = true;
+
+}
+
 
 const todayDiv = document.getElementById("weather-today");
 const weekDiv = document.getElementById("weather-week");
 
-//todayDiv.hidden = true;
-//weekDiv.hidden = true;
+todayDiv.hidden = true;
+weekDiv.hidden = true;
+
+
 
 let hourly = document.getElementById("hour");
 hourly.addEventListener("click", hourlyWeather);
 
-
 let weekly = document.getElementById("week");
 weekly.addEventListener("click", weeklyWeather);
+
+//Reset button
+resetButton = document.getElementById("reset-button");
+
+resetButton.addEventListener("click", reset);
+
+resetButton.hidden = true;
