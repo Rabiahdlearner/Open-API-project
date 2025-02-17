@@ -64,10 +64,11 @@ let weeklyWeather = function () {
             console.log(data);
             let outputDiv = document.getElementById("weather-week");
 
-            weekDiv.hidden = false;
+            //weekDiv.hidden = false;
             todayDiv.hidden = true;
             hourly.hidden = true;
             resetButton.hidden = false;
+            weekSection.hidden = false;
 
 
 
@@ -125,20 +126,36 @@ let weeklyWeather = function () {
 
 
 let reset = function () {
+    console.log("Today Div: ", todayDiv.style);
+    console.log("Weekly Div: ", weekDiv.style);
     todayDiv.hidden = true;
-    weekDiv.hidden = true;
+    // weekDiv.hidden = true;
     hourly.hidden = false;
     weekly.hidden = false;
     resetButton.hidden = true;
+    weekSection.hidden = true;
+
+    //if (weekDiv.hidden === true) {}
+
+
+    //weekDiv.style.display = "none";
+
+    console.log("Today Div: ", todayDiv.style);
+    console.log("Weekly Div: ", weekDiv.style);
 
 }
+
+
 
 
 const todayDiv = document.getElementById("weather-today");
 const weekDiv = document.getElementById("weather-week");
 
+const weekSection = document.getElementById("week-id");
+weekSection.hidden = true;
+
 todayDiv.hidden = true;
-weekDiv.hidden = true;
+//weekDiv.hidden = true;
 
 
 
